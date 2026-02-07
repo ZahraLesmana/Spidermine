@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpiderLove | Mas Sayang</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { poppins: ['Poppins'] },
+      colors: {
+        spideyRed: '#E10600',
+        spideyBlue: '#0D47A1',
+        venomBlack: '#06080D',
+        webWhite: '#F5F5F5'
+      },
+      animation: {
+        float: 'float 6s ease-in-out infinite',
+        glow: 'glow 3s infinite',
+        swing: 'swing 4s ease-in-out infinite',
+        web: 'web 2s ease-out forwards',
+        fadeIn: 'fadeIn 0.5s ease-out',
+        slideUp: 'slideUp 0.6s ease-out',
+        heartbeat: 'heartbeat 1.5s ease-in-out infinite',
+        pulse: 'pulse 0.5s ease-out',
+        spin: 'spin 1s linear',
+        zoomIn: 'zoomIn 0.3s ease-out',
+        slideInLeft: 'slideInLeft 0.5s ease-out',
+        slideInRight: 'slideInRight 0.5s ease-out',
+        bounceIn: 'bounceIn 0.6s ease-out'
+      },
+      keyframes: {
+        float: {
+          '0%,100%': {transform:'translateY(0)'},
+          '50%': {transform:'translateY(-20px)'}
+        },
+        glow: {
+          '0%,100%': {boxShadow:'0 0 20px rgba(225,6,0,.4)'},
+          '50%': {boxShadow:'0 0 60px rgba(225,6,0,.8), 0 0 100px rgba(225,6,0,.4)'}
+        },
+        swing: {
+          '0%,100%': {transform:'rotate(-3deg)'},
+          '50%': {transform:'rotate(3deg)'}
+        },
+        web: {
+          '0%': {strokeDashoffset: '1000'},
+          '100%': {strokeDashoffset: '0'}
+        },
+        fadeIn: {
+          '0%': {opacity: '0'},
+          '100%': {opacity: '1'}
+        },
+        slideUp: {
+          '0%': {transform:'translateY(30px)', opacity:'0'},
+          '100%': {transform:'translateY(0)', opacity:'1'}
+        },
+        heartbeat: {
+          '0%,100%': {transform:'scale(1)'},
+          '25%': {transform:'scale(1.1)'},
+          '50%': {transform:'scale(1)'}
+        },
+        pulse: {
+          '0%': {transform:'scale(1)', opacity:'1'},
+          '100%': {transform:'scale(2)', opacity:'0'}
+        },
+        zoomIn: {
+          '0%': {transform:'scale(0)', opacity:'0'},
+          '100%': {transform:'scale(1)', opacity:'1'}
+        },
+        slideInLeft: {
+          '0%': {transform:'translateX(-100px)', opacity:'0'},
+          '100%': {transform:'translateX(0)', opacity:'1'}
+        },
+        slideInRight: {
+          '0%': {transform:'translateX(100px)', opacity:'0'},
+          '100%': {transform:'translateX(0)', opacity:'1'}
+        },
+        bounceIn: {
+          '0%': {transform:'scale(0.3)', opacity:'0'},
+          '50%': {transform:'scale(1.05)'},
+          '70%': {transform:'scale(0.9)'},
+          '100%': {transform:'scale(1)', opacity:'1'}
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style>
+@keyframes particles {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+.particle {
+  animation: particles 15s linear infinite;
+}
+
+/* WEB RIPPLE EFFECT */
+@keyframes webRipple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+.web-ripple {
+  position: absolute;
+  border: 3px solid #5b0906;
+  border-radius: 50%;
+  animation: webRipple 1s ease-out;
+  pointer-events: none;
+}
+
+/* SPIDER WEB TRAIL */
+@keyframes webTrail {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.web-trail {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, transparent 30%, rgba(225,6,0,0.3) 31%, transparent 32%),
+              repeating-radial-gradient(circle, rgba(225,6,0,0.2) 0 2px, transparent 2px 20px);
+  animation: webTrail 0.8s ease-out;
+  pointer-events: none;
+}
+
+/* HEART BURST */
+@keyframes heartBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.heart-burst {
+  position: absolute;
+  font-size: 30px;
+  animation: heartBurst 1s ease-out;
+  pointer-events: none;
+}
+
+/* SPIDER SWING */
+@keyframes spiderSwing {
+  0% {
+    transform: translateY(-100px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.spider-swing {
+  position: absolute;
+  font-size: 40px;
+  animation: spiderSwing 2s ease-out;
+  pointer-events: none;
+}
+
+/* ENHANCED RADIAL SPIDER WEB */
+.web-bg {
+  background:
+    radial-gradient(circle at center, transparent 0%, transparent 58%, rgba(255,255,255,.08) 60%, transparent 62%),
+    repeating-radial-gradient(circle at center, rgba(255,255,255,.06) 0 2px, transparent 2px 28px),
+    repeating-conic-gradient(from 0deg, rgba(255,255,255,.08) 0deg 2deg, transparent 2deg 20deg),
+    linear-gradient(180deg, rgba(225,6,0,.15) 0%, rgba(6,8,13,1) 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #9f211d 0%, #FF4D4D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(225,6,0,.3);
+}
+
+.web-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #06080D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #841b17;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b93636;
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cursor trail */
+.cursor-trail {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #E10600, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fadeOut 1s ease-out;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Click effect text */
+@keyframes floatText {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+}
+
+.float-text {
+  position: absolute;
+  font-weight: bold;
+  color: #E10600;
+  font-size: 20px;
+  animation: floatText 2s ease-out;
+  pointer-events: none;
+  text-shadow: 0 0 10px rgba(225,6,0,0.5);
+}
+
+/* GALLERY STYLES */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 20px 60px rgba(225,6,0,0.5);
+  z-index: 10;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  animation: zoomIn 0.4s ease;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 20px;
+  box-shadow: 0 0 100px rgba(225,6,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(225,6,0,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lightbox-close:hover {
+  background: #E10600;
+  transform: rotate(90deg);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(225,6,0,0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lightbox-nav:hover {
+  background: #E10600;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav.prev {
+  left: 20px;
+}
+
+.lightbox-nav.next {
+  right: 20px;
+}
+
+/* PHOTO UPLOAD AREA */
+.upload-area {
+  border: 3px dashed rgba(225,6,0,0.5);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #E10600;
+  background: rgba(225,6,0,0.1);
+}
+
+.upload-area.dragover {
+  border-color: #E10600;
+  background: rgba(225,6,0,0.2);
+  transform: scale(1.02);
+}
+
+/* MASONRY GRID */
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.masonry-item {
+  break-inside: avoid;
+}
+
+/* 3D FLIP EFFECT */
+.flip-card {
+  perspective: 1000px;
+  height: 300px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #E10600, #0D47A1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body class="font-poppins bg-venomBlack text-white overflow-x-hidden cursor-crosshair">
+
+<!-- PARTICLES BACKGROUND -->
+<div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HEADER -->
+<header class="fixed top-0 w-full z-40 glass">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <span class="text-3xl animate-swing">🕷️</span>
+      <span class="font-bold text-lg tracking-wide gradient-text">SPIDERLOVE</span>
+    </div>
+    <div class="flex gap-4 items-center">
+      <button onclick="scrollToSection('gallery')" class="opacity-80 hover:opacity-100 transition text-sm">Gallery</button>
+      <button onclick="scrollToSection('countdown')" class="opacity-80 hover:opacity-100 transition text-sm">Countdown</button>
+      <button onclick="toggleMusic()" id="musicBtn" class="opacity-80 hover:opacity-100 transition">
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center relative web-bg overflow-hidden">
+  
+  <!-- ANIMATED SPIDER -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 text-[220px] opacity-10 select-none animate-float">
+    🕷️
+  </div>
+
+  <!-- SVG WEB DECORATION -->
+  <svg class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 800 600">
+    <path class="web-line" d="M400,50 L400,550" stroke="#E10600" stroke-width="2" fill="none"/>
+    <path class="web-line" d="M100,300 L700,300" stroke="#E10600" stroke-width="2" fill="none"/>
+    <path class="web-line" d="M150,100 L650,500" stroke="#E10600" stroke-width="2" fill="none"/>
+    <path class="web-line" d="M650,100 L150,500" stroke="#E10600" stroke-width="2" fill="none"/>
+  </svg>
+
+  <div class="relative text-center px-6 z-10">
+    <div class="animate-slideUp">
+      <h1 class="text-6xl md:text-7xl font-black mb-6 mt-10 gradient-text drop-shadow-[0_10px_35px_rgba(0,0,0,0.65)]">
+  Mas Sayang
+</h1>
+
+      <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-4 font-light">
+        Seperti Spider-Man yang selalu kembali ke New York,
+      </p>
+      <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10 font-light">
+        aku akan selalu kembali ke kamu
+      </p>
+
+      <div class="flex gap-4 justify-center flex-wrap">
+        <button onclick="openLetter()"
+          class="px-12 py-4 rounded-full bg-spideyRed font-bold animate-glow hover:bg-red-700 transition transform hover:scale-105">
+          Buka Surat Cinta
+        </button>
+        <button onclick="scrollToSection('gallery')"
+          class="px-12 py-4 rounded-full glass font-bold hover:bg-white/10 transition transform hover:scale-105">
+          Lihat Gallery
+        </button>
+      </div>
+    </div>
+
+    <!-- LOVE STATS -->
+    <div class="mt-16 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="text-3xl mb-2"></div>
+        <div class="text-2xl font-bold" id="daysCount">0</div>
+        <div class="text-sm opacity-70">Hari Bersama</div>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="text-3xl mb-2"></div>
+        <div class="text-2xl font-bold" id="photoCount">0</div>
+        <div class="text-sm opacity-70">Foto Kenangan</div>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="text-3xl mb-2"></div>
+        <div class="text-2xl font-bold">∞</div>
+        <div class="text-sm opacity-70">Cinta</div>
+      </div>
+    </div>
+
+    <!-- INTERACTION HINT -->
+    <div class="mt-12 animate-pulse">
+      <p class="text-sm opacity-60">Klik atau sentuh layar untuk efek spesial</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section id="gallery" class="py-20 px-6 bg-black">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-4 text-center gradient-text">Photo Gallery</h2>
+    <p class="text-center opacity-80 mb-12">Best Memories</p>
+    
+    <!-- UPLOAD AREA -->
+    <div class="mb-12">
+      <div id="uploadArea" class="upload-area" onclick="document.getElementById('photoUpload').click()">
+        <div class="text-6xl mb-4"></div>
+        <h3 class="text-xl font-bold mb-2">Upload Foto Kenangan</h3>
+        <p class="text-sm opacity-70 mb-4">Klik atau drag & drop foto di sini</p>
+        <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="addPhoto(event)" multiple>
+        <button class="px-6 py-3 bg-spideyRed rounded-full hover:bg-red-700 transition">
+          Pilih Foto
+        </button>
+      </div>
+    </div>
+
+    <!-- GALLERY GRID -->
+    <div id="photoGallery" class="masonry-grid">
+      <!-- Photos will be added here -->
+    </div>
+
+    <div id="emptyGallery" class="text-center py-20 opacity-50">
+      <div class="text-6xl mb-4"></div>
+      <p>Belum ada foto kenangan. Upload foto pertama yuk!</p>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN TO SPECIAL DATE -->
+<section id="countdown" class="py-20 px-6 bg-gradient-to-b from-black to-venomBlack">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-4 gradient-text">Countdown ke Hari Spesial</h2>
+    <p class="opacity-80 mb-10">Waktu sampai moment spesial kita selanjutnya</p>
+    
+    <div class="glass rounded-3xl p-8 mb-6">
+      <div class="grid grid-cols-4 gap-4 md:gap-8">
+        <div class="card-hover glass rounded-2xl p-6">
+          <div class="text-4xl md:text-5xl font-black text-spideyRed" id="days">00</div>
+          <div class="text-sm opacity-70 mt-2">Hari</div>
+        </div>
+        <div class="card-hover glass rounded-2xl p-6">
+          <div class="text-4xl md:text-5xl font-black text-spideyRed" id="hours">00</div>
+          <div class="text-sm opacity-70 mt-2">Jam</div>
+        </div>
+        <div class="card-hover glass rounded-2xl p-6">
+          <div class="text-4xl md:text-5xl font-black text-spideyRed" id="minutes">00</div>
+          <div class="text-sm opacity-70 mt-2">Menit</div>
+        </div>
+        <div class="card-hover glass rounded-2xl p-6">
+          <div class="text-4xl md:text-5xl font-black text-spideyRed" id="seconds">00</div>
+          <div class="text-sm opacity-70 mt-2">Detik</div>
+        </div>
+      </div>
+      <button onclick="setSpecialDate()" class="mt-6 px-6 py-3 bg-spideyRed rounded-full hover:bg-red-700 transition">
+        Atur Tanggal Spesial
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- LOVE QUOTES -->
+<section id="memories" class="py-20 px-6 bg-gradient-to-b from-venomBlack to-black">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-4xl font-bold mb-4 text-center gradient-text">Quotes & Pesan Sayang</h2>
+    <p class="text-center opacity-80 mb-12">Kata-kata manis untuk mas sayang</p>
+    
+    <div class="glass rounded-3xl p-8 mb-8 card-hover">
+      <div class="text-6xl text-center mb-6 animate-heartbeat"></div>
+      <p class="text-xl text-center italic font-light leading-relaxed" id="randomQuote">
+        "With great love comes great responsibility to make you happy every day."
+      </p>
+      <button onclick="changeQuote()" class="mt-6 mx-auto block px-6 py-2 bg-spideyRed/20 rounded-full hover:bg-spideyRed/40 transition">
+        Quote Lainnya
+      </button>
+    </div>
+
+    <div class="glass rounded-3xl p-8">
+      <h3 class="text-2xl font-bold mb-6">Tulis Pesan Sayang</h3>
+      <textarea id="loveMessage"
+        class="w-full h-32 p-4 rounded-xl bg-white/10 border border-white/20 focus:border-spideyRed focus:outline-none mb-4 resize-none"
+        placeholder="Tulis pesan sayang untuk mas..."></textarea>
+      <button onclick="saveLoveMessage()" class="bg-spideyRed px-8 py-3 rounded-full font-bold hover:bg-red-700 transition">
+        Simpan Pesan
+      </button>
+      <div id="messages" class="mt-8 space-y-4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTES RAHASIA -->
+<section class="py-20 px-6 bg-venomBlack">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-4xl font-bold mb-4 text-center gradient-text">Notes Rahasia Kita</h2>
+    <p class="text-center opacity-80 mb-12">Catatan terenkripsi dengan password</p>
+    
+    <div class="glass rounded-3xl p-8">
+      <div class="flex gap-4 mb-6">
+        <input type="text" id="noteTitle"
+          class="flex-1 p-4 rounded-xl bg-white/10 border border-white/20 focus:border-spideyRed focus:outline-none"
+          placeholder="Judul catatan...">
+      </div>
+      <textarea id="note"
+        class="w-full h-40 p-4 rounded-xl bg-white/10 border border-white/20 focus:border-spideyRed focus:outline-none mb-4 resize-none"
+        placeholder="Tulis catatan rahasia..."></textarea>
+      <div class="mb-4">
+        <input type="password" id="notePassword"
+          class="w-full p-4 rounded-xl bg-white/10 border border-white/20 focus:border-spideyRed focus:outline-none"
+          placeholder="Password untuk mengunci catatan ini...">
+        <p class="text-xs opacity-60 mt-2">💡 Password akan dibutuhkan untuk membuka catatan</p>
+      </div>
+      <div class="flex gap-4">
+        <button onclick="saveNote()" class="flex-1 bg-spideyRed px-6 py-3 rounded-full font-bold hover:bg-red-700 transition">
+          🔒 Simpan & Kunci
+        </button>
+        <button onclick="clearNotes()" class="px-6 py-3 rounded-full border border-spideyRed text-spideyRed hover:bg-spideyRed hover:text-white transition">
+          Hapus Semua
+        </button>
+      </div>
+      <div id="notes" class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-12 px-6 bg-black border-t border-white/10">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="text-5xl mb-4 animate-swing">🕷️</div>
+    <p class="text-xl font-light mb-2">Made with love and Spider-Man vibes</p>
+    <p class="opacity-60 text-sm">Untuk Mas Sayang - Karena kamu suka spiderman</p>
+    <div class="mt-6 text-sm opacity-40">
+      Your friendly neighborhood lover
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-close" onclick="closeLightbox()">×</div>
+    <div class="lightbox-nav prev" onclick="navigatePhoto(-1)">‹</div>
+    <div class="lightbox-nav next" onclick="navigatePhoto(1)">›</div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 glass px-6 py-3 rounded-full">
+      <p id="lightboxCaption" class="text-sm"></p>
+    </div>
+  </div>
+</div>
+
+<!-- LETTER MODAL -->
+<div id="letter" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
+  <div class="glass border-2 border-spideyRed p-8 md:p-12 rounded-3xl max-w-2xl text-center animate-slideUp">
+    <div class="text-6xl mb-6 animate-heartbeat">💌</div>
+    <h3 class="text-3xl font-bold mb-6 gradient-text">Surat Cinta untuk Mas Sayang</h3>
+    <div class="bg-white/5 p-6 rounded-2xl mb-6">
+      <p id="typing" class="opacity-90 text-base md:text-lg leading-relaxed font-light text-left"></p>
+    </div>
+    <button onclick="closeLetter()" class="px-8 py-3 bg-spideyRed rounded-full font-bold hover:bg-red-700 transition">
+      Tutup Surat
+    </button>
+  </div>
+</div>
+
+<!-- DATE PICKER MODAL -->
+<div id="dateModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
+  <div class="glass border-2 border-spideyRed p-8 rounded-3xl max-w-md">
+    <h3 class="text-2xl font-bold mb-6 gradient-text">Atur Tanggal Spesial</h3>
+    <input type="datetime-local" id="specialDateInput"
+      class="w-full p-4 rounded-xl bg-white/10 border border-white/20 focus:border-spideyRed focus:outline-none mb-6 text-white">
+    <div class="flex gap-4">
+      <button onclick="saveSpecialDate()" class="flex-1 bg-spideyRed px-6 py-3 rounded-full font-bold hover:bg-red-700 transition">
+        Simpan
+      </button>
+      <button onclick="closeDateModal()" class="px-6 py-3 rounded-full border border-white/20 hover:bg-white/10 transition">
+        Batal
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PASSWORD UNLOCK MODAL -->
+<div id="passwordModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
+  <div class="glass border-2 border-spideyRed p-8 rounded-3xl max-w-md animate-bounceIn">
+    <div class="text-6xl text-center mb-6"></div>
+    <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Masukkan Password</h3>
+    <p class="text-center opacity-70 mb-6" id="noteToUnlockTitle">Catatan Terkunci</p>
+    <input type="password" id="unlockPassword"
+      class="w-full p-4 rounded-xl bg-white/10 border border-white/20 focus:border-spideyRed focus:outline-none mb-2 text-white"
+      placeholder="Masukkan password..."
+      onkeypress="if(event.key === 'Enter') unlockNote()">
+    <p id="passwordError" class="text-red-400 text-sm mb-4 hidden">❌ Password salah!</p>
+    <div class="flex gap-4">
+      <button onclick="unlockNote()" class="flex-1 bg-spideyRed px-6 py-3 rounded-full font-bold hover:bg-red-700 transition">
+        🔓 Buka
+      </button>
+      <button onclick="closePasswordModal()" class="px-6 py-3 rounded-full border border-white/20 hover:bg-white/10 transition">
+        Batal
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTE VIEWER MODAL -->
+<div id="noteViewerModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
+  <div class="glass border-2 border-spideyRed p-8 rounded-3xl max-w-2xl animate-slideUp">
+    <div class="flex justify-between items-start mb-6">
+      <h3 class="text-2xl font-bold gradient-text" id="viewNoteTitle">Judul Note</h3>
+      <button onclick="closeNoteViewer()" class="text-3xl opacity-70 hover:opacity-100 transition">×</button>
+    </div>
+    <div class="bg-white/5 p-6 rounded-2xl mb-4">
+      <p id="viewNoteContent" class="opacity-90 whitespace-pre-wrap leading-relaxed"></p>
+    </div>
+    <div class="text-xs opacity-50 mb-6" id="viewNoteDate">Tanggal</div>
+    <button onclick="closeNoteViewer()" class="w-full px-6 py-3 bg-spideyRed rounded-full font-bold hover:bg-red-700 transition">
+      Tutup
+    </button>
+  </div>
+</div>
+
+<script>
+// MUSIC CONTROL
+const music = document.getElementById("music");
+let isPlaying = false;
+
+function toggleMusic() {
+  if (isPlaying) {
+    music.pause();
+    document.getElementById("musicIcon").textContent = "🔇";
+  } else {
+    music.play();
+    document.getElementById("musicIcon").textContent = "🎵";
+  }
+  isPlaying = !isPlaying;
+}
+
+// PARTICLES
+function createParticles() {
+  const container = document.getElementById('particles');
+  for(let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle absolute text-2xl opacity-30';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.textContent = ['🕷️', '🕸️', '❤️', '💕'][Math.floor(Math.random() * 4)];
+    container.appendChild(particle);
+  }
+}
+createParticles();
+
+// ====== INTERACTIVE CLICK/TOUCH ANIMATIONS ======
+
+const loveTexts = [
+  "I Love You", "Sayang Mas", "❤️", "💕", "💝", "😘", 
+  "Cinta Kamu", "My Love", "Bebeb", "Mas Sayang", 
+  "Forever", "Always", "🕷️", "🕸️", "Thwip!"
+];
+
+let clickCount = 0;
+const effectTypes = ['ripple', 'web', 'heart', 'spider', 'text'];
+
+// CLICK/TOUCH EVENT LISTENER
+document.addEventListener('click', function(e) {
+  createClickEffect(e.clientX, e.clientY);
+  clickCount++;
+});
+
+// TOUCH EVENT FOR MOBILE
+document.addEventListener('touchstart', function(e) {
+  const touch = e.touches[0];
+  createClickEffect(touch.clientX, touch.clientY);
+  clickCount++;
+}, { passive: true });
+
+// MOUSE MOVE TRAIL (SUBTLE)
+let lastTrailTime = 0;
+document.addEventListener('mousemove', function(e) {
+  const now = Date.now();
+  if (now - lastTrailTime > 100) {
+    createCursorTrail(e.clientX, e.clientY);
+    lastTrailTime = now;
+  }
+});
+
+function createClickEffect(x, y) {
+  const effectType = effectTypes[clickCount % effectTypes.length];
+  
+  switch(effectType) {
+    case 'ripple':
+      createRipple(x, y);
+      break;
+    case 'web':
+      createWebTrail(x, y);
+      break;
+    case 'heart':
+      createHeartBurst(x, y);
+      break;
+    case 'spider':
+      createSpiderSwing(x, y);
+      break;
+    case 'text':
+      createFloatingText(x, y);
+      break;
+  }
+}
+
+// RIPPLE EFFECT
+function createRipple(x, y) {
+  const ripple = document.createElement('div');
+  ripple.className = 'web-ripple';
+  ripple.style.left = x + 'px';
+  ripple.style.top = y + 'px';
+  ripple.style.transform = 'translate(-50%, -50%)';
+  document.body.appendChild(ripple);
+  
+  setTimeout(() => ripple.remove(), 1000);
+}
+
+// WEB TRAIL EFFECT
+function createWebTrail(x, y) {
+  const web = document.createElement('div');
+  web.className = 'web-trail';
+  web.style.left = (x - 50) + 'px';
+  web.style.top = (y - 50) + 'px';
+  document.body.appendChild(web);
+  
+  setTimeout(() => web.remove(), 800);
+}
+
+// HEART BURST EFFECT
+function createHeartBurst(x, y) {
+  const hearts = ['❤️', '💕', '💖', '💝', '💗', '💓'];
+  const count = 5 + Math.floor(Math.random() * 5);
+  
+  for(let i = 0; i < count; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-burst';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = x + 'px';
+    heart.style.top = y + 'px';
+    heart.style.animationDelay = (i * 0.1) + 's';
+    
+    const angle = (360 / count) * i;
+    const distance = 50 + Math.random() * 50;
+    heart.style.setProperty('--tx', Math.cos(angle * Math.PI / 180) * distance + 'px');
+    heart.style.setProperty('--ty', Math.sin(angle * Math.PI / 180) * distance + 'px');
+    
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1000);
+  }
+}
+
+// SPIDER SWING EFFECT
+function createSpiderSwing(x, y) {
+  const spider = document.createElement('div');
+  spider.className = 'spider-swing';
+  spider.textContent = '🕷️';
+  spider.style.left = x + 'px';
+  spider.style.top = y + 'px';
+  document.body.appendChild(spider);
+  
+  setTimeout(() => spider.remove(), 2000);
+}
+
+// FLOATING TEXT EFFECT
+function createFloatingText(x, y) {
+  const text = document.createElement('div');
+  text.className = 'float-text';
+  text.textContent = loveTexts[Math.floor(Math.random() * loveTexts.length)];
+  text.style.left = x + 'px';
+  text.style.top = y + 'px';
+  document.body.appendChild(text);
+  
+  setTimeout(() => text.remove(), 2000);
+}
+
+// CURSOR TRAIL
+function createCursorTrail(x, y) {
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  trail.style.left = x + 'px';
+  trail.style.top = y + 'px';
+  document.body.appendChild(trail);
+  
+  setTimeout(() => trail.remove(), 1000);
+}
+
+// ====== PHOTO GALLERY ======
+
+let currentPhotoIndex = 0;
+let photos = [];
+
+// DRAG AND DROP
+const uploadArea = document.getElementById('uploadArea');
+
+uploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadArea.classList.add('dragover');
+});
+
+uploadArea.addEventListener('dragleave', () => {
+  uploadArea.classList.remove('dragover');
+});
+
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  
+  const files = e.dataTransfer.files;
+  handleFiles(files);
+});
+
+function addPhoto(event) {
+  const files = event.target.files;
+  handleFiles(files);
+}
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const photos = JSON.parse(localStorage.getItem("spiderPhotos") || "[]");
+      photos.push({
+        data: e.target.result,
+        date: new Date().toLocaleDateString('id-ID'),
+        caption: `Kenangan ${photos.length + 1}`
+      });
+      localStorage.setItem("spiderPhotos", JSON.stringify(photos));
+      renderGallery();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderGallery() {
+  const gallery = document.getElementById("photoGallery");
+  const emptyState = document.getElementById("emptyGallery");
+  photos = JSON.parse(localStorage.getItem("spiderPhotos") || "[]");
+  
+  if (photos.length === 0) {
+    gallery.style.display = 'none';
+    emptyState.style.display = 'block';
+    document.getElementById("photoCount").textContent = 0;
+    return;
+  }
+  
+  gallery.style.display = 'grid';
+  emptyState.style.display = 'none';
+  gallery.innerHTML = "";
+  
+  photos.forEach((photo, index) => {
+    const div = document.createElement("div");
+    div.className = `gallery-item masonry-item animate-${index % 2 === 0 ? 'slideInLeft' : 'slideInRight'}`;
+    div.style.animationDelay = `${index * 0.1}s`;
+    
+    // Random height for masonry effect
+    const heights = ['250px', '300px', '350px', '280px'];
+    div.style.height = heights[index % heights.length];
+    
+    div.innerHTML = `
+      <img src="${photo.data}" alt="${photo.caption}">
+      <div class="gallery-overlay">
+        <p class="font-bold mb-2">${photo.caption}</p>
+        <p class="text-xs opacity-70">${photo.date}</p>
+      </div>
+      <button onclick="deletePhoto(${index})" class="absolute top-3 right-3 w-10 h-10 bg-red-500/90 rounded-full hover:bg-red-600 transition flex items-center justify-center text-xl z-20">
+        ×
+      </button>
+    `;
+    
+    div.addEventListener('click', (e) => {
+      if (!e.target.closest('button')) {
+        openLightbox(index);
+      }
+    });
+    
+    gallery.appendChild(div);
+  });
+  
+  document.getElementById("photoCount").textContent = photos.length;
+}
+
+function openLightbox(index) {
+  currentPhotoIndex = index;
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  const caption = document.getElementById('lightboxCaption');
+  
+  img.src = photos[index].data;
+  caption.textContent = `${photos[index].caption} - ${photos[index].date}`;
+  
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+function navigatePhoto(direction) {
+  currentPhotoIndex += direction;
+  
+  if (currentPhotoIndex < 0) {
+    currentPhotoIndex = photos.length - 1;
+  } else if (currentPhotoIndex >= photos.length) {
+    currentPhotoIndex = 0;
+  }
+  
+  const img = document.getElementById('lightboxImg');
+  const caption = document.getElementById('lightboxCaption');
+  
+  img.style.animation = 'none';
+  setTimeout(() => {
+    img.src = photos[currentPhotoIndex].data;
+    caption.textContent = `${photos[currentPhotoIndex].caption} - ${photos[currentPhotoIndex].date}`;
+    img.style.animation = 'zoomIn 0.3s ease';
+  }, 10);
+}
+
+// KEYBOARD NAVIGATION
+document.addEventListener('keydown', (e) => {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox.classList.contains('active')) return;
+  
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navigatePhoto(-1);
+  if (e.key === 'ArrowRight') navigatePhoto(1);
+});
+
+function deletePhoto(index) {
+  if (confirm("Hapus foto ini?")) {
+    const photos = JSON.parse(localStorage.getItem("spiderPhotos") || "[]");
+    photos.splice(index, 1);
+    localStorage.setItem("spiderPhotos", JSON.stringify(photos));
+    renderGallery();
+  }
+}
+
+renderGallery();
+
+// WEB ANIMATION
+window.addEventListener('load', () => {
+  document.querySelectorAll('.web-line').forEach((line, index) => {
+    setTimeout(() => {
+      line.style.animation = 'web 2s ease-out forwards';
+    }, index * 200);
+  });
+});
+
+// LETTER
+function openLetter() {
+  letter.classList.remove("hidden");
+  letter.classList.add("flex");
+  const text = "Hai Mas Sayang,\n\nSeperti Spider-Man yang butuh jaring untuk berayun di antara gedung-gedung, aku butuh kamu untuk melewati setiap hari dalam hidupku. Seperti bagaimana Peter Parker selalu kembali ke MJ, aku akan selalu kembali ke kamu, tidak peduli seberapa jauh aku pergi.\n\nKamu adalah alasan aku bangun setiap pagi dengan senyuman. Kamu adalah kekuatan super yang membuatku merasa bisa melakukan apa saja.\n\nWith great love comes great happiness. Dan aku berjanji akan selalu membuatmu bahagia.\n\nI love you 3000 times more than anything.\n\nYour Friendly Neighborhood Lover";
+  
+  let i = 0;
+  typing.innerHTML = "";
+  const interval = setInterval(() => {
+    if (text[i] === '\n') {
+      typing.innerHTML += '<br>';
+    } else {
+      typing.innerHTML += text[i];
+    }
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, 40);
+}
+
+function closeLetter() {
+  letter.classList.add("hidden");
+  letter.classList.remove("flex");
+}
+
+// NOTES WITH PASSWORD PROTECTION
+let currentNoteIndex = null;
+
+// Simple encryption function (base64 encoding with salt)
+function encryptNote(text, password) {
+  const saltedText = password + text + password;
+  return btoa(saltedText);
+}
+
+function decryptNote(encrypted, password) {
+  try {
+    const decrypted = atob(encrypted);
+    const passwordLength = password.length;
+    const original = decrypted.slice(passwordLength, -passwordLength);
+    
+    // Verify password is correct by checking if decrypted text makes sense
+    if (decrypted.startsWith(password) && decrypted.endsWith(password)) {
+      return original;
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveNote() {
+  const title = document.getElementById("noteTitle").value.trim();
+  const content = document.getElementById("note").value.trim();
+  const password = document.getElementById("notePassword").value.trim();
+  
+  if (!title || !content) {
+    alert("Judul dan isi note tidak boleh kosong!");
+    return;
+  }
+  
+  if (!password) {
+    alert("Password tidak boleh kosong! Ini untuk melindungi catatan rahasia kamu.");
+    return;
+  }
+  
+  const notes = JSON.parse(localStorage.getItem("spiderNotes") || "[]");
+  
+  // Encrypt the content
+  const encryptedContent = encryptNote(content, password);
+  
+  notes.push({
+    title: title,
+    content: encryptedContent,
+    date: new Date().toLocaleDateString('id-ID'),
+    locked: true
+  });
+  localStorage.setItem("spiderNotes", JSON.stringify(notes));
+  
+  document.getElementById("noteTitle").value = "";
+  document.getElementById("note").value = "";
+  document.getElementById("notePassword").value = "";
+  renderNotes();
+  
+  // Success message
+  alert("✅ Catatan berhasil disimpan dan dikunci!");
+}
+
+function deleteNote(index) {
+  if (confirm("Hapus note ini?")) {
+    const notes = JSON.parse(localStorage.getItem("spiderNotes") || "[]");
+    notes.splice(index, 1);
+    localStorage.setItem("spiderNotes", JSON.stringify(notes));
+    renderNotes();
+  }
+}
+
+function clearNotes() {
+  if (confirm("Hapus semua notes?")) {
+    localStorage.setItem("spiderNotes", "[]");
+    renderNotes();
+  }
+}
+
+function openLockedNote(index) {
+  currentNoteIndex = index;
+  const notes = JSON.parse(localStorage.getItem("spiderNotes") || "[]");
+  const note = notes[index];
+  
+  document.getElementById("noteToUnlockTitle").textContent = note.title;
+  document.getElementById("unlockPassword").value = "";
+  document.getElementById("passwordError").classList.add("hidden");
+  
+  const modal = document.getElementById("passwordModal");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+  
+  // Focus on password input
+  setTimeout(() => {
+    document.getElementById("unlockPassword").focus();
+  }, 100);
+}
+
+function unlockNote() {
+  const password = document.getElementById("unlockPassword").value;
+  const notes = JSON.parse(localStorage.getItem("spiderNotes") || "[]");
+  const note = notes[currentNoteIndex];
+  
+  const decryptedContent = decryptNote(note.content, password);
+  
+  if (decryptedContent !== null) {
+    // Password correct, show note
+    closePasswordModal();
+    showNoteViewer(note.title, decryptedContent, note.date);
+  } else {
+    // Wrong password
+    const errorElement = document.getElementById("passwordError");
+    errorElement.classList.remove("hidden");
+    document.getElementById("unlockPassword").value = "";
+    document.getElementById("unlockPassword").focus();
+    
+    // Shake animation
+    const modal = document.querySelector("#passwordModal .glass");
+    modal.style.animation = "none";
+    setTimeout(() => {
+      modal.style.animation = "bounceIn 0.6s ease-out";
+    }, 10);
+  }
+}
+
+function closePasswordModal() {
+  const modal = document.getElementById("passwordModal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+  currentNoteIndex = null;
+}
+
+function showNoteViewer(title, content, date) {
+  document.getElementById("viewNoteTitle").textContent = title;
+  document.getElementById("viewNoteContent").textContent = content;
+  document.getElementById("viewNoteDate").textContent = date;
+  
+  const modal = document.getElementById("noteViewerModal");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeNoteViewer() {
+  const modal = document.getElementById("noteViewerModal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+
+function renderNotes() {
+  const container = document.getElementById("notes");
+  const notes = JSON.parse(localStorage.getItem("spiderNotes") || "[]");
+  
+  container.innerHTML = "";
+  notes.forEach((note, index) => {
+    const div = document.createElement("div");
+    div.className = "glass rounded-2xl p-6 card-hover cursor-pointer relative";
+    div.innerHTML = `
+      <div class="absolute top-3 right-3 flex gap-2">
+        <div class="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center text-sm">
+          🔒
+        </div>
+        <button onclick="event.stopPropagation(); deleteNote(${index})" class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 hover:bg-red-500/40 transition">
+          ×
+        </button>
+      </div>
+      <div class="pr-20">
+        <h4 class="font-bold text-lg text-spideyRed mb-3">${note.title}</h4>
+        <p class="opacity-50 text-sm mb-3 italic">Catatan terkunci - Klik untuk membuka</p>
+        <div class="text-xs opacity-50">${note.date}</div>
+      </div>
+    `;
+    
+    div.addEventListener('click', () => openLockedNote(index));
+    container.appendChild(div);
+  });
+}
+renderNotes();
+
+// LOVE MESSAGES
+function saveLoveMessage() {
+  const message = document.getElementById("loveMessage").value.trim();
+  if (!message) return;
+  
+  const messages = JSON.parse(localStorage.getItem("loveMessages") || "[]");
+  messages.unshift({
+    text: message,
+    date: new Date().toLocaleDateString('id-ID'),
+    time: new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})
+  });
+  localStorage.setItem("loveMessages", JSON.stringify(messages));
+  
+  document.getElementById("loveMessage").value = "";
+  renderMessages();
+}
+
+function deleteMessage(index) {
+  const messages = JSON.parse(localStorage.getItem("loveMessages") || "[]");
+  messages.splice(index, 1);
+  localStorage.setItem("loveMessages", JSON.stringify(messages));
+  renderMessages();
+}
+
+function renderMessages() {
+  const container = document.getElementById("messages");
+  const messages = JSON.parse(localStorage.getItem("loveMessages") || "[]");
+  
+  container.innerHTML = "";
+  messages.forEach((msg, index) => {
+    const div = document.createElement("div");
+    div.className = "glass rounded-2xl p-6 card-hover animate-fadeIn";
+    div.innerHTML = `
+      <div class="flex justify-between items-start mb-3">
+        <div class="text-3xl">💌</div>
+        <button onclick="deleteMessage(${index})" class="text-red-400 hover:text-red-600 text-sm">×</button>
+      </div>
+      <p class="opacity-90 mb-3 italic">"${msg.text}"</p>
+      <div class="text-xs opacity-50">${msg.date} • ${msg.time}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+renderMessages();
+
+// QUOTES
+  const quotes = [
+  "Dengan cinta sebesar ini, aku rela memikul semua risikonya bersamamu.",
+  "Seperti jaring yang selalu membawamu pulang, aku akan selalu ada saat kamu kembali.",
+  "Di balik topengmu, aku melihat laki-laki yang paling aku cintai.",
+  "Setiap pahlawan butuh alasan untuk bertarung, dan aku memilih menjadi alasan itu untukmu.",
+  "Kamu mungkin Spider-Man bagi dunia, tapi bagiku kamu hanyalah orang yang ingin aku lindungi.",
+  "Cerita kita mungkin penuh bahaya, tapi aku tidak pernah menyesal mencintaimu.",
+  "Aku selalu tahu kapan kamu terluka, bahkan sebelum kamu mengatakannya.",
+  "Aku adalah tempatmu berpijak saat dunia terasa terlalu tinggi untuk dilalui.",
+  "Jika ini harga mencintai seorang pahlawan, aku akan membayarnya setiap hari.",
+  "Ke mana pun kamu berayun, hatiku akan selalu menunggumu pulang."
+];
+
+
+function changeQuote() {
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById("randomQuote").textContent = `"${randomQuote}"`;
+}
+
+// COUNTDOWN
+function updateCountdown() {
+  const targetDate = localStorage.getItem("specialDate");
+  if (!targetDate) {
+    const defaultDate = new Date();
+    defaultDate.setMonth(defaultDate.getMonth() + 1);
+    localStorage.setItem("specialDate", defaultDate.toISOString());
+  }
+  
+  const target = new Date(localStorage.getItem("specialDate")).getTime();
+  const now = new Date().getTime();
+  const diff = target - now;
+  
+  if (diff > 0) {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById("days").textContent = String(days).padStart(2, '0');
+    document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+  } else {
+    document.getElementById("days").textContent = "00";
+    document.getElementById("hours").textContent = "00";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
+  }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+function setSpecialDate() {
+  const modal = document.getElementById("dateModal");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+  
+  // Set current value if exists
+  const currentDate = localStorage.getItem("specialDate");
+  if (currentDate) {
+    const date = new Date(currentDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    document.getElementById("specialDateInput").value = `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+}
+
+function saveSpecialDate() {
+  const dateInput = document.getElementById("specialDateInput").value;
+  
+  if (!dateInput) {
+    alert("Pilih tanggal dan waktu terlebih dahulu!");
+    return;
+  }
+  
+  localStorage.setItem("specialDate", new Date(dateInput).toISOString());
+  closeDateModal();
+  updateCountdown();
+  alert("✅ Tanggal spesial berhasil disimpan!");
+}
+
+function closeDateModal() {
+  document.getElementById("dateModal").classList.add("hidden");
+  document.getElementById("dateModal").classList.remove("flex");
+}
+
+// DAYS TOGETHER
+function updateDaysTogether() {
+  const startDate = localStorage.getItem("relationshipStart");
+  if (!startDate) {
+    const defaultStart = new Date('2024-01-01');
+    localStorage.setItem("relationshipStart", defaultStart.toISOString());
+  }
+  
+  const start = new Date(localStorage.getItem("relationshipStart"));
+  const now = new Date();
+  const diff = now - start;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  
+  document.getElementById("daysCount").textContent = days;
+}
+updateDaysTogether();
+
+// SMOOTH SCROLL
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Initialize on load
+window.addEventListener('load', () => {
+  changeQuote();
+});
+</script>
+
+</body>
+</html>
